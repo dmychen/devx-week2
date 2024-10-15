@@ -1,70 +1,158 @@
-# Getting Started with Create React App
+# Code Snippets
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Basic Task UI
+```html
 
-## Available Scripts
+import './App.css';
 
-In the project directory, you can run:
+import React from 'react'
+import { useState } from 'react'
 
-### `npm start`
+function TodoList () {
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+  return (
+    <div>
+      <p>Todo List</p>
+      <div>
+        <p>Task: task name here</p>
+        <p>Notes: task notes here</p>
+        <p>Due: due date here</p>
+        <button>Remove</button>
+        <button>Edit</button>
+      </div>
+    </div>
+  );
+}
+export default TodoList;
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Task Storage
+```html
+var tasks = [["task 1 title", "task 1 notes", "task 1 due date"],
+    ["task 2 title", "task 2 notes", "task 2 due date"],
+    ["task 3 title", "task 3 notes", "task 3 due date"]]
+```
 
-### `npm test`
+## Task Rendering
+```html
+{tasks.map((task, index) => (
+      <div key={index}>
+        <div>
+          <p>Task: {task[0]}</p>
+          <p>Notes: {task[1]}</p>
+          <p>Due: {task[2]}</p>
+          <button>Remove</button>
+          <button>Edit</button>
+        </div>
+      </div>
+))}
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## UI Challenge
+How can we make this look better?
+```html
+CSS styling: add margins, color scheme, fonts, etc.
+```
 
-### `npm run build`
+```html
+<div key={index} className="todo-item">
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+...
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+.todo-item {
+  color: black;
+  background-color: white;
+  border-radius: 10px;
+  margin-top: 5px;
+  padding: 10px;
+  width: 400px;
+  text-align: left;
+  font-size: 20px;
+}
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Delete Task
+```html
+function deleteTask(index){
+    const newTasks = [...tasks]
+    newTasks.splice(index, 1)
+    tasks = newTasks
+}
 
-### `npm run eject`
+...
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+<button onClick={() => deleteTask(index)}>Remove</button>
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Dynamic Rendering with State
+```html
+const [tasks, setTasks] = useState([
+    ["task 1 title", "task 1 notes", "task 1 due date"],
+    ["task 2 title", "task 2 notes", "task 2 due date"],
+    ["task 3 title", "task 3 notes", "task 3 due date"]
+  ]);
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+...
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+setTasks(newTasks)
+```
 
-## Learn More
+## Add Task
+```html
+function addTask() {
+    setTasks([...tasks, ["new task title", "notes", "due"]])
+}
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<div>
+  <div>
+    <input type="text" placeholder="Task Title" />
+  </div>
+  <div>
+    <input type="text" placeholder="Task Notes" />
+  </div>
+  <div>
+    <input type="text" placeholder="Task Due Date" />
+  </div>
+  <div>
+    <button onClick={()=>addTask()}>Add Task</button>
+  </div>
+</div>
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Dynamic Task Adding
+```html
+const [title, setTitle] = useState('')
+const [notes, setNotes] = useState('')
+const [due, setDue] = useState('')
 
-### Code Splitting
+...
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+function handleChange(e, target){
+  if (target == "title") {
+    setTitle(e.target.value)
+  } else if (target == "notes") {
+    setNotes(e.target.value)
+  } else {
+    setDue(e.target.value)
+  }
+}
 
-### Analyzing the Bundle Size
+...
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+<div>
+  <input type="text" value={title} onChange={(e) => handleChange(e, "title")} placeholder="Task Title" />
+</div>
+<div>
+  <input type="text" value={notes} onChange={(e) => handleChange(e, "notes")} placeholder="Task Notes" />
+</div>
+<div>
+  <input type="text" value={due} onChange={(e) => handleChange(e, "due")} placeholder="Task Due Date" />
+</div>
+```
 
-### Making a Progressive Web App
+## Feature brainstorming
+```html
+Add edit functionality
+Reordering functionality
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
