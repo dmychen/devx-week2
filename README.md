@@ -1,5 +1,12 @@
 # Code Snippets
 
+## Getting started
+```html
+npx create-react-app todo-app
+cd todo-app
+npm start
+```
+
 ## Basic Task UI
 ```html
 
