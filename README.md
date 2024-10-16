@@ -146,6 +146,15 @@ function handleChange(e, target){
 
 ...
 
+function addTask() {
+  setTasks([...tasks, [title, notes, due]])
+  setTitle('')
+  setNotes('')
+  setDue('')
+}
+
+...
+
 <div>
   <input type="text" value={title} onChange={(e) => handleChange(e, "title")} placeholder="Task Title" />
 </div>
