@@ -1,11 +1,12 @@
 import { useState } from "react";
 
 function AddTodo ({ addTask }) {
+    // store the current title, notes, and date state
     const [title, setTitle] = useState('');
     const [notes, setNotes] = useState('');
     const [due, setDue] = useState('');
 
-    // updates the data stored in our title, notes, and due variables (state) on user input
+    // updates title, notes, and due-date variables on user input
     function handleChange(e, target){
         if (target == "title") {
             setTitle(e.target.value);
