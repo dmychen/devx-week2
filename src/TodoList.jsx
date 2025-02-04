@@ -1,132 +1,101 @@
-import './App.css';
 import { useState } from 'react'
+import AddTodo from './AddTodo';
 
 function TodoList () {
-  // dummy tasks we start with
-  const [tasks, setTasks] = useState([
-    ["task 1 title", "task 1 notes", "task 1 due date"],
-    ["task 2 title", "task 2 notes", "task 2 due date"],
-    ["task 3 title", "task 3 notes", "task 3 due date"]
-  ]);
+    // dummy tasks we start with
+    const [tasks, setTasks] = useState([
+        ["task 1 title", "task 1 notes", "task 1 due date"],
+        ["task 2 title", "task 2 notes", "task 2 due date"],
+        ["task 3 title", "task 3 notes", "task 3 due date"]
+    ]);
 
-  const [title, setTitle] = useState('')
-  const [notes, setNotes] = useState('')
-  const [due, setDue] = useState('')
+    //  const [addBox, setAddBox] = useState(false)
+    // const [editTitle, setEditTitle] = useState('');
+    // const [editNotes, setEditNotes] = useState('');
+    // const [editDue, setEditDue] = useState('');
+    // const [editingIndex, setEditingIndex] = useState(null); // New state to track editing task index
 
-  //  const [addBox, setAddBox] = useState(false)
-  // const [editTitle, setEditTitle] = useState('');
-  // const [editNotes, setEditNotes] = useState('');
-  // const [editDue, setEditDue] = useState('');
-  // const [editingIndex, setEditingIndex] = useState(null); // New state to track editing task index
+    
 
-  // updates the data stored in our title, notes, and due variables (state) on user input
-  function handleChange(e, target){
-    if (target == "title") {
-      setTitle(e.target.value)
-    } else if (target == "notes") {
-      setNotes(e.target.value)
-    } else {
-      setDue(e.target.value)
+    // removes a task from our list
+    function deleteTask (index) {
+        const newTasks = [...tasks]
+        newTasks.splice(index, 1)
+        setTasks(newTasks)
     }
-  }
 
-  // removes a task from our list
-  function deleteTask(index){
-    const newTasks = [...tasks]
-    newTasks.splice(index, 1)
-    setTasks(newTasks)
-  }
+    function editTask (index) {
+        console.log(`This should edit the task at index ${index}!`);
+    }
 
-  function editTask(index){
-    console.log(`This should edit the task at index ${index}!`);
-  }
+    function addTask ({ title, notes, due }) {
+        setTasks([...tasks, [title, notes, due]])
+    }
 
 
-  // function handleEditChange(e, target) {
-  //   if (target === "title") {
-  //     setEditTitle(e.target.value);
-  //   } else if (target === "notes") {
-  //     setEditNotes(e.target.value);
-  //   } else {
-  //     setEditDue(e.target.value);
-  //   }
-  // }
+    // function handleEditChange(e, target) {
+    //   if (target === "title") {
+    //     setEditTitle(e.target.value);
+    //   } else if (target === "notes") {
+    //     setEditNotes(e.target.value);
+    //   } else {
+    //     setEditDue(e.target.value);
+    //   }
+    // }
 
-  // function editTask(index) {
-  //   setEditingIndex(index); // Set the index of the task being edited
-  //   setEditTitle(tasks[index][0]); // Pre-fill fields with existing task data
-  //   setEditNotes(tasks[index][1]);
-  //   setEditDue(tasks[index][2]);
-  // }
+    // function editTask(index) {
+    //   setEditingIndex(index); // Set the index of the task being edited
+    //   setEditTitle(tasks[index][0]); // Pre-fill fields with existing task data
+    //   setEditNotes(tasks[index][1]);
+    //   setEditDue(tasks[index][2]);
+    // }
 
-  // function saveTask() {
-  //   const newTasks = [...tasks];
-  //   newTasks[editingIndex] = { title: editTitle, notes: editNotes, due: editDue }; // Update the task at the editing index
-  //   setTasks(newTasks);
-  //   setEditingIndex(null); // Reset the editing state
-  //   setEditTitle(''); // Clear input fields
-  //   setEditNotes('');
-  //   setEditDue('');
-  // }
+    // function saveTask() {
+    //   const newTasks = [...tasks];
+    //   newTasks[editingIndex] = { title: editTitle, notes: editNotes, due: editDue }; // Update the task at the editing index
+    //   setTasks(newTasks);
+    //   setEditingIndex(null); // Reset the editing state
+    //   setEditTitle(''); // Clear input fields
+    //   setEditNotes('');
+    //   setEditDue('');
+    // }
 
-  function addTask() {
-    setTasks([...tasks, [title, notes, due]])
-    setTitle('')
-    setNotes('')
-    setDue('')
-    // setAddBox(false)
-  }
+    
 
-  // function saveTask() {
-  //   const newTasks = [...tasks];
-  //   console.log(editTitle + " " + editNotes + " " + editDue)
-  //   newTasks[editingIndex] = [ editTitle, editNotes, editDue ]; // Update the task at the editing index
-  //   setTasks(newTasks);
-  //   console.log(tasks)
-  //   setEditingIndex(-1); // Reset the editing state
-  //   setEditTitle(''); // Clear input fields
-  //   setEditNotes('');
-  //   setEditDue('');
-  // }
+    // function saveTask() {
+    //   const newTasks = [...tasks];
+    //   console.log(editTitle + " " + editNotes + " " + editDue)
+    //   newTasks[editingIndex] = [ editTitle, editNotes, editDue ]; // Update the task at the editing index
+    //   setTasks(newTasks);
+    //   console.log(tasks)
+    //   setEditingIndex(-1); // Reset the editing state
+    //   setEditTitle(''); // Clear input fields
+    //   setEditNotes('');
+    //   setEditDue('');
+    // }
 
-  // function openAddTask() {
-  //   setAddBox(!addBox)
-  //   setTitle('')
-  //   setNotes('')
-  //   setDue('')
-  // }
+    // function openAddTask() {
+    //   setAddBox(!addBox)
+    //   setTitle('')
+    //   setNotes('')
+    //   setDue('')
+    // }
 
-  return (
-    <div className="list-app">
-      <p>Todo List</p>
-        <div>
-          <div>
-            <input type="text" value={title} onChange={(e) => handleChange(e, "title")} placeholder="Task Title" />
-          </div>
-          <div>
-            <input type="text" value={notes} onChange={(e) => handleChange(e, "notes")} placeholder="Task Notes" />
-          </div>
-          <div>
-            <input type="text" value={due} onChange={(e) => handleChange(e, "due")} placeholder="Task Due Date" />
-          </div>
-          <div>
-            <button onClick={()=>addTask()}>Add Task</button>
-          </div>
+    return (
+        <div className="todo-list">
+            <AddTodo addTask={addTask} />
+            
+            {tasks.map((task, index) => (
+                <TodoItem 
+                    key={index}
+                    task={task} 
+                    index={index} 
+                    deleteTask={deleteTask}
+                    editTask={editTask}
+                />
+            ))}
         </div>
-        
-      {tasks.map((task, index) => (
-        <div key={index} className="todo-item">
-            <div>
-              <p className="task-line">Task: {task[0]}</p>
-              <p className="task-line">Notes: {task[1]}</p>
-              <p className="task-line">Due: {task[2]}</p>
-              <button className="left-btn" onClick={() => deleteTask(index)}>Remove</button>
-              <button onClick={() => editTask(index)}>Edit</button>
-            </div>
-        </div>
-      ))}
-    </div>
-  );
+    );
 }
 
 export default TodoList;
