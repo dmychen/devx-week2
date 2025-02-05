@@ -9,7 +9,7 @@ We will be continuing from where we left off week 1. In this repository I initia
 ```bash
 # If you want to start from a clean slate:
 git clone https://github.com/dmychen/devx-week2-template.git
-cd devx-week1
+cd devx-week2-template
 npm install
 ```
 
