@@ -13,6 +13,8 @@ cd devx-week1
 npm install
 ```
 
+> If you're using vite, start the server with `npm run dev` instead of `npm start`
+
 ## Resources
 
 **Workshop Links**
