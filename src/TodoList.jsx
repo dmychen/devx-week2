@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import AddTodo from './AddTodo';
 import TodoItem from './TodoItem';
+import EditTodo from './EditTodo';
 
 function TodoList () {
     // dummy tasks we start with
@@ -9,17 +10,23 @@ function TodoList () {
         ["task 2 title", "task 2 notes", "task 2 due date"],
         ["task 3 title", "task 3 notes", "task 3 due date"]
     ]);
-    // toggle AddTodo box
-    const [showAddTodo, setShowAddTodo] = useState(false);
+    const [showAddTodo, setShowAddTodo] = useState(false); // toggle AddTodo box
+    const [editingIndex, setEditingIndex] = useState(-1); // index of currently editing task
+    
+    function addTask ({ title, notes, due }) {
+        setTasks([...tasks, [title, notes, due]])
+    }
 
     function deleteTask (index) {
         const newTasks = [...tasks]
         newTasks.splice(index, 1)
         setTasks(newTasks)
     }
-
-    function addTask ({ title, notes, due }) {
-        setTasks([...tasks, [title, notes, due]])
+    
+    function editTask (index, newTitle, newNotes, newDue) {
+        const newTasks = [...tasks];
+        newTasks[index] = [ newTitle, newNotes, newDue ]; // Update the task at the editing index
+        setTasks(newTasks);
     }
 
     return (
@@ -28,12 +35,22 @@ function TodoList () {
             {showAddTodo ? (<AddTodo addTask={addTask} />) : null }
             
             {tasks.map((task, index) => (
-                <TodoItem 
-                    key={index}
-                    task={task} 
-                    index={index} 
-                    deleteTask={deleteTask}
-                />
+                editingIndex == index ? (
+                    <EditTodo 
+                        key={index} 
+                        index={index}
+                        editTask={editTask}
+                        setEditingIndex={setEditingIndex}
+                    />
+                ) : (
+                    <TodoItem 
+                        key={index}
+                        index={index} 
+                        task={task} 
+                        deleteTask={deleteTask}
+                        setEditingIndex={setEditingIndex}
+                    />
+                )
             ))}
         </div>
     );
